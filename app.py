@@ -5,6 +5,7 @@ import sys
 import logging
 import uuid
 import gradio as gr
+import config
 
 from modules.data_extraction import extract_linkedin_profile
 from modules.data_processing import split_profile_data, create_vector_database
