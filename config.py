@@ -1,11 +1,24 @@
 """Configuration settings for the Icebreaker Bot."""
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # IBM watsonx.ai settings
-WATSONX_URL = "https://us-south.ml.cloud.ibm.com"
-WATSONX_PROJECT_ID = "skills-network"
+WATSONX_URL = os.getenv("WATSONX_URL")
+WATSONX_PROJECT_ID = os.getenv("WATSONX_PROJECT_ID")
 
+url = "https://eu-gb.ml.cloud.ibm.com"
+project_id = "d065193c-9ad1-468b-a895-50a5aed857a0"
+api_key = os.environ.get("WATSONX_APIKEY")
+
+credentials = {
+    "url": url,
+    "api_key": api_key,  # Using the api_key variable from environment variables
+    "project_id": project_id  # Also including project_id for completeness
+}
 # Model settings
-LLM_MODEL_ID = "ibm/granite-3-2-8b-instruct"
+LLM_MODEL_ID = "ibm/granite-3-2b-instruct"
 EMBEDDING_MODEL_ID = "ibm/slate-125m-english-rtrvr"
 
 # ProxyCurl API settings

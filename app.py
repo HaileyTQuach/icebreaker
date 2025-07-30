@@ -10,7 +10,10 @@ from modules.data_extraction import extract_linkedin_profile
 from modules.data_processing import split_profile_data, create_vector_database
 from modules.llm_interface import change_llm_model
 from modules.query_engine import generate_initial_facts, answer_user_query
-import config
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Set up logging
 logging.basicConfig(

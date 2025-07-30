@@ -17,14 +17,18 @@ def create_watsonx_embedding() -> WatsonxEmbeddings:
     Returns:
         WatsonxEmbeddings model.
     """
-    # TODO: Implement this function to create a Watsonx embedding model
-    # 1. Create and return a WatsonxEmbeddings model using config values
-    
-    pass  # Replace with your implementation
+    watsonx_embedding = WatsonxEmbeddings(
+        model_id=config.EMBEDDING_MODEL_ID,
+        url=config.WATSONX_URL,
+        project_id=config.WATSONX_PROJECT_ID,
+        truncate_input_tokens=3,
+    )
+    logger.info(f"Created Watsonx Embedding model: {config.EMBEDDING_MODEL_ID}")
+    return watsonx_embedding
 
 def create_watsonx_llm(
-    temperature: float = 0.0,
-    max_new_tokens: int = 500,
+    temperature: float = config.TEMPERATURE,
+    max_new_tokens: int = config.MAX_NEW_TOKENS,
     decoding_method: str = "sample"
 ) -> WatsonxLLM:
     """Creates an IBM Watsonx LLM for generating responses.
@@ -37,11 +41,26 @@ def create_watsonx_llm(
     Returns:
         WatsonxLLM model.
     """
-    # TODO: Implement this function to create a Watsonx LLM
-    # 1. Define additional parameters for the LLM
-    # 2. Create and return a WatsonxLLM model using config values and parameters
-    
-    pass  # Replace with your implementation
+    additional_params = {
+        "decoding_method": decoding_method,
+        "min_new_tokens": config.MIN_NEW_TOKENS,
+        "top_k": config.TOP_K,
+        "top_p": config.TOP_P,
+    }
+
+
+
+
+    watsonx_llm = WatsonxLLM(
+        model_id=config.LLM_MODEL_ID,
+        url = config.url,
+        project_id=config.project_id,
+        temperature=temperature,
+        max_new_tokens=max_new_tokens,
+        additional_params=additional_params,
+    )
+    logger.info(f"Created Watsonx LLM model: {config.LLM_MODEL_ID}")
+    return watsonx_llm
 
 def change_llm_model(new_model_id: str) -> None:
     """Change the LLM model to use.
@@ -49,8 +68,6 @@ def change_llm_model(new_model_id: str) -> None:
     Args:
         new_model_id: New LLM model ID to use.
     """
-    # TODO: Implement this function to change the LLM model
-    # 1. Update the LLM model ID in the config
-    # 2. Log the change
-    
-    pass  # Replace with your implementation
+    global config
+    config.LLM_MODEL_ID = new_model_id
+    logger.info(f"Changed LLM model to: {new_model_id}")
